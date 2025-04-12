@@ -57,7 +57,19 @@ $this->title = 'Номинации';
 
     <div class="container py-5">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="container-fluid p-0 mb-5"> <!-- container-fluid для полной ширины, p-0 убирает padding -->
+                <?= Html::tag('picture',
+                    Html::tag('source', '', [
+                        'media' => '(min-width: 1200px)',
+                        'srcset' => Yii::getAlias('@web') . '/images/nominations.jpg'
+                    ]) .
+                    Html::img('@web/images/nominations-mob.jpg', [
+                        'alt' => 'Картинка',
+                        'class' => 'img-fluid'
+                    ])
+                ) ?>
+            </div>
+            <ul>
                 <?php foreach ($items as $item):?>
                     <?php if ($item->active):?>
                         <div class="list-item active position-relative">
@@ -76,7 +88,7 @@ $this->title = 'Номинации';
                         </div>
                     <?php endif?>
                 <?php endforeach;?>
-            </div>
+            </ul>
         </div>
     </div>
 </div>

@@ -2,6 +2,8 @@
 
 /** @var yii\web\View $this */
 
+use yii\helpers\Html;
+
 $this->title = 'Конкурс';
 ?>
 
@@ -11,6 +13,18 @@ $this->title = 'Конкурс';
         <div class="col-lg-8 mx-auto">
             <h2 class="mb-4">Кафедральный конкурс компьютерной графики и дизайна!</h2>
             <p class="lead">Приглашаем принять участие в конкурсе компьютерной графики и дизайна!</p>
+            <div class="container-fluid p-0 mb-5"> <!-- container-fluid для полной ширины, p-0 убирает padding -->
+                <?= Html::tag('picture',
+                    Html::tag('source', '', [
+                        'media' => '(min-width: 1200px)',
+                        'srcset' => Yii::getAlias('@web') . '/images/main.jpg'
+                    ]) .
+                    Html::img('@web/images/main-mob.jpg', [
+                        'alt' => 'Картинка',
+                        'class' => 'img-fluid'
+                    ])
+                ) ?>
+            </div>
             <ol class="list-unstyled">
                 <li class="mb-3">
                     <h5 class="fw-bold">1. Организация конкурса</h5>
