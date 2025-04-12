@@ -99,7 +99,7 @@ class SiteController extends Controller
             ->all();
 
         $currentDate = new DateTime();
-        $targetDate = DateTime::createFromFormat('d-m-Y', '21.04.2025');
+        $targetDate = DateTime::createFromFormat('d.m.Y', '22.04.2025');
 
         if (empty($nominations) || ($currentDate > $targetDate)) {
             return $this->render('unregistration', []);
