@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Nomination;
 use app\models\User;
+use DateTime;
 use Yii;
 use yii\bootstrap5\Html;
 use yii\filters\AccessControl;
@@ -92,6 +93,18 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $nominations = Nomination::find()
+            ->select(['id', 'title'])
+            ->where(['active' => 1])
+            ->all();
+
+        $currentDate = new DateTime();
+        $targetDate = DateTime::createFromFormat('d-m-Y', '21.04.2025');
+
+        if (empty($nominations) || ($currentDate > $targetDate)) {
+            return $this->render('unregistration', []);
+        }
+
         $model = new User(['scenario' => 'register']);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -105,11 +118,6 @@ class SiteController extends Controller
                 return $this->redirect(['profile/index']);
             }
         }
-
-        $nominations = Nomination::find()
-            ->select(['id', 'title'])
-            ->where(['active' => 1])
-            ->all();
 
         return $this->render('registration', [
             'model' => $model,
