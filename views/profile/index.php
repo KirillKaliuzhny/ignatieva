@@ -50,8 +50,9 @@ $this->title = 'Мой профиль';
         </div>
     </div>
 
-    <div class="profile-actions mt-5 text-center">
-
+    <div class="profile-actions mt-5">
+        <h2>Загрузка работ</h2>
+        <p>// Доступ откроется с 01.05</p>
     </div>
 </div>
 
