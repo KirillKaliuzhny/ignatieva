@@ -3,6 +3,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\UserFile;
 
+/** @var yii\web\View $this */
+/** @var \app\models\Nomination[] $nominations */
+/** @var \app\models\User $user */
+/** @var \app\models\UserFile[] $files */
+
 $this->title = 'Админка';
 ?>
 
@@ -19,8 +24,8 @@ $this->title = 'Админка';
                 <div class="users-list">
                     <?php foreach ($nomination->users as $user): ?>
                         <?php
-                        $photoFile = $user->getFiles()->where(['type' => UserFile::TYPE_IMAGE])->one();
-                        $cdrFile = $user->getFiles()->where(['type' => UserFile::TYPE_CDR])->one();
+                        $photoFile = $user->getFiles()->where(['file_type' => UserFile::TYPE_IMAGE])->one();
+                        $cdrFile = $user->getFiles()->where(['file_type' => UserFile::TYPE_CDR])->one();
                         ?>
                         <div class="user-card mb-3 p-3 border rounded">
                             <div class="user-info mb-2">
@@ -32,12 +37,12 @@ $this->title = 'Админка';
                                 <?php if ($photoFile): ?>
                                     <div class="file-item mb-1">
                                         <i class="fas fa-image"></i>
-                                        <?= Html::a(
-                                            'Скачать фото',
-                                            ['/admin/download', 'id' => $photoFile->id],
-                                            ['class' => 'file-link']
-                                        ) ?>
-                                        <span class="file-size">(<?= Yii::$app->formatter->asShortSize($photoFile->size) ?>)</span>
+                                        <a href="<?=$photoFile->file_url?>"
+                                           id="<?=$photoFile->id?>"
+                                           download="true"
+                                           class="file-link"
+                                           target="_blank"
+                                        >Скачать фото</a>
                                     </div>
                                 <?php else: ?>
                                     <span>Фото не загружено</span>
@@ -46,12 +51,11 @@ $this->title = 'Админка';
                                 <?php if ($cdrFile): ?>
                                     <div class="file-item">
                                         <i class="fas fa-file-archive"></i>
-                                        <?= Html::a(
-                                           'Скачать файл',
-                                            ['/admin/download', 'id' => $cdrFile->id],
-                                            ['class' => 'file-link']
-                                        ) ?>
-                                        <span class="file-size">(<?= Yii::$app->formatter->asShortSize($cdrFile->size) ?>)</span>
+                                        <a href="<?=$cdrFile->file_url?>"
+                                            id="<?=$cdrFile->id?>"
+                                           download="true"
+                                           class="file-link"
+                                        >Скачать файл</a>
                                     </div>
                                 <?php else: ?>
                                     <span>Файл не загружен</span>

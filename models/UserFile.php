@@ -12,17 +12,16 @@ class UserFile extends ActiveRecord
 
     public static function tableName()
     {
-        return 'user_file';
+        return 'user_files';
     }
 
     public function rules()
     {
         return [
-            [['user_id', 'type', 'original_name', 's3_key', 'size', 'mime_type'], 'required'],
-            [['user_id', 'type', 'size', 'created_at', 'updated_at'], 'integer'],
-            [['original_name', 's3_key'], 'string', 'max' => 255],
-            [['mime_type'], 'string', 'max' => 100],
-            ['type', 'in', 'range' => [self::TYPE_IMAGE, self::TYPE_CDR]],
+            [['user_id', 'file_type'], 'required'],
+            [['user_id', 'file_type','created_at', 'updated_at'], 'integer'],
+            [['file_url'], 'string'],
+            ['file_type', 'in', 'range' => [self::TYPE_IMAGE, self::TYPE_CDR]],
         ];
     }
 

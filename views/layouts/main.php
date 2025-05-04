@@ -45,6 +45,10 @@ if (Yii::$app->user->isGuest) {
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropzone@5/dist/min/dropzone.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5/dist/min/dropzone.min.js"></script>
+    <?= Html::csrfMetaTags() ?>
+
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">

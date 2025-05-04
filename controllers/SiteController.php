@@ -101,9 +101,9 @@ class SiteController extends Controller
         $currentDate = new DateTime();
         $targetDate = DateTime::createFromFormat('d.m.Y', '28.04.2025');
 
-        if (empty($nominations) || ($currentDate > $targetDate)) {
-            return $this->render('unregistration', []);
-        }
+//        if (empty($nominations) || ($currentDate > $targetDate)) {
+//            return $this->render('unregistration', []);
+//        }
 
         $model = new User(['scenario' => 'register']);
 

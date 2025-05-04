@@ -143,7 +143,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
     public function getFiles()
     {
-        return $this->hasMany(UserFile::class, ['user_id' => 'id']);
+        return $this->hasMany(UserFile::class, ['user_id' => 'id'])->indexBy('file_type');
+    }
+
+    public function getUserName()
+    {
+        return $this->first_name . ' ' . $this->last_name . ' (' . $this->group . ')';
     }
 
 

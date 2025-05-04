@@ -42,16 +42,4 @@ class AdminController extends Controller
             'nominations' => $nominations
         ]);
     }
-    public function actionDownload($id)
-    {
-        $file = UserFile::findOne($id);
-        if (!$file) {
-            throw new \yii\web\NotFoundHttpException('Файл не найден');
-        }
-
-        $s3 = Yii::$app->s3;
-        $fileUrl = $s3->getPresignedUrl($file->s3_key, '+5 minutes');
-
-        return $this->redirect($fileUrl);
-    }
 }

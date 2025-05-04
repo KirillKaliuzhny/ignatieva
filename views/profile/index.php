@@ -2,18 +2,17 @@
 
 /** @var yii\web\View $this */
 /** @var \app\models\Nomination $nomination */
-
 /** @var \app\models\User $user */
+/** @var \app\models\UserFile[] $files */
 
 use yii\helpers\Html;
-use app\models\UserFile;
 use yii\helpers\Url;
 
-$photoFile = $user->getFiles()->where(['type' => UserFile::TYPE_IMAGE])->one();
-$cdrFile = $user->getFiles()->where(['type' => UserFile::TYPE_CDR])->one();
 $this->title = 'Мой профиль';
 ?>
-
+<!--<pre>-->
+<!--    --><?php //var_dump($files);?>
+<!--</pre>-->
 <div class="profile-index">
     <div class="profile-header text-center mb-5">
         <div class="avatar-circle mb-3">
@@ -52,9 +51,78 @@ $this->title = 'Мой профиль';
 
     <div class="profile-actions mt-5">
         <h2>Загрузка работ</h2>
-        <p>// Доступ откроется с 05.05</p>
+        <p>При загрузке файлов дождитесь окончания загрузки. Если нужно обновить уже загруженный файл, то просто добавьте ваш новый файл - ранее загруженный файл будет удален.</p>
+        <div class="mb-5">
+            <h5>Файл JPG</h5>
+            <?php if (isset($files[\app\models\UserFile::TYPE_IMAGE])):?>
+                <span>Файл загружен:</span>
+                <image class="file_preview" src="<?= $files[\app\models\UserFile::TYPE_IMAGE]->file_url ?>" alt="jpg" />
+            <?php endif;?>
+            <form action="<?= Url::to(['profile/upload-jpg']) ?>"
+                  class="dropzone"
+                  id="jpg-dropzone"
+                  enctype="multipart/form-data">
+            </form>
+        </div>
+
+        <div class="mb-5">
+            <h5>Файл CDR</h5>
+            <?php if (isset($files[\app\models\UserFile::TYPE_IMAGE])):?>
+                <span>Файл загружен</span>
+            <?php endif;?>
+            <form action="<?= Url::to(['profile/upload-cdr']) ?>"
+                  class="dropzone"
+                  id="cdr-dropzone2"
+                  enctype="multipart/form-data">
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    Dropzone.autoDiscover = false;
+
+    new Dropzone("#jpg-dropzone", {
+        paramName: "file",
+        maxFiles: 1,
+        acceptedFiles: ".jpg",
+        headers: {
+            'X-CSRF-Token': csrfToken
+        },
+        maxFilesize: 6000,
+        timeout:600000,
+        dictDefaultMessage: "Перетащите JPG сюда или нажмите для выбора",
+        init: function () {
+            this.on("success", function(file, response) {
+                console.log("JPG загружен", response);
+            });
+            this.on("error", function(file, response) {
+                console.error("Ошибка JPG:", response);
+            });
+        }
+    });
+
+    new Dropzone("#cdr-dropzone2", {
+        paramName: "file",
+        maxFiles: 1,
+        acceptedFiles: ".cdr",
+        headers: {
+            'X-CSRF-Token': csrfToken
+        },
+        maxFilesize: 6000,
+        timeout:600000,
+        dictDefaultMessage: "Перетащите CDR сюда или нажмите для выбора",
+        init: function () {
+            this.on("success", function(file, response) {
+                console.log("CDR загружен", response);
+            });
+            this.on("error", function(file, response) {
+                console.error("Ошибка CDR:", response);
+            });
+        }
+    });
+</script>
 
 <style>
     .profile-index {
@@ -119,5 +187,10 @@ $this->title = 'Мой профиль';
             width: 100%;
             margin-bottom: 0.5rem;
         }
+    }
+    .file_preview {
+        max-width: 200px;
+        object-fit: contain;
+        margin-bottom: 24px;
     }
 </style>

@@ -1,5 +1,7 @@
 <?php
 
+use Aws\S3\S3Client;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -31,6 +33,14 @@ $config = [
             'viewPath' => '@app/mail',
             // send all mails to a file by default.
             'useFileTransport' => true,
+        ],
+        's3' => [
+            'class' => 'app\components\S3Component',
+            'key' => 'STTGEHCXMUJUNQACMQE0',
+            'secret' => 'cOIiyjuqn4HVasobqWUITwOuYm1Lm7uOQyt16tOT',
+            'region' => 'ru-msk',
+            'endpoint' => 'https://s3.ru1.storage.beget.cloud',
+            'bucket' => '9fc516eeb538-ignatieva-s3',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

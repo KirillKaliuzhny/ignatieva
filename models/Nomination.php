@@ -72,6 +72,6 @@ class Nomination extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::class, ['nomination_id' => 'id']);
+        return $this->hasMany(User::class, ['nomination_id' => 'id'])->where(['role' => User::ROLE_USER]);
     }
 }
