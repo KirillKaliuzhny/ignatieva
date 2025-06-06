@@ -10,9 +10,6 @@ use yii\helpers\Url;
 
 $this->title = 'Мой профиль';
 ?>
-<!--<pre>-->
-<!--    --><?php //var_dump($files);?>
-<!--</pre>-->
 <div class="profile-index">
     <div class="profile-header text-center mb-5">
         <div class="avatar-circle mb-3">

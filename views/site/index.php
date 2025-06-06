@@ -7,10 +7,56 @@ use yii\helpers\Html;
 $this->title = 'Конкурс';
 ?>
 
+<style>
+    .minimal-frame {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .frame-title {
+        border-bottom: 2px solid #ff6b6b;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        font-size: 2rem;
+        color: #d63384;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    p {
+        font-size: 1.25rem;
+        line-height: 1.6;
+    }
+    .balloon {
+        position: absolute;
+        width: 40px;
+        height: 50px;
+        background-color: #ff6b6b;
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+    }
+</style>
+
 
 <div class="container mt-4">
     <div class="row">
         <div class="col-lg-8 mx-auto">
+            <div class="balloon" style="left: 10%; top: 10%; background-color: #ff6b6b;"></div>
+            <div class="balloon" style="left: 85%; top: 15%; background-color: #4dabf7; animation-delay: 1s;"></div>
+            <div class="minimal-frame">
+                <h3 class="frame-title">🎉 Итоги конкурса 🎊</h3>
+                <p class="mb-3">Призерами стали:</p>
+                <p class="mb-3">Сорокина Валерия Алексеевна (Группа: АИБ-2-048) и Рудик Валерия Леонидовна (Группа: АИБ-2-048).</p>
+            </div>
             <h2 class="mb-4">Кафедральный конкурс компьютерной графики и дизайна!</h2>
             <p class="lead">Приглашаем принять участие в конкурсе компьютерной графики и дизайна!</p>
             <div class="container-fluid p-0 mb-5"> <!-- container-fluid для полной ширины, p-0 убирает padding -->
